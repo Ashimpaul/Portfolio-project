@@ -4,9 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ImageController::class, 'showWelcome'])->name('welcome');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -16,6 +15,9 @@ Route::get('/dashboard', function () {
 
 Route::get('/upload-image', [ImageController::class, 'create'])->name('image.create');
 Route::post('/upload-image', [ImageController::class, 'store'])->name('image.store');
+
+//download image
+Route::get('/download-image/{image}', [ImageController::class, 'download'])->name('image.download');
 
 
 Route::middleware('auth')->group(function () {
